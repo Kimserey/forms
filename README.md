@@ -2,4 +2,4 @@
 
 Example of async form with inline validation with WebSharper.Forms.
 
-![preview]()
+![preview](https://raw.githubusercontent.com/Kimserey/forms/master/form.gif)
