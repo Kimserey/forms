@@ -18582,7 +18582,7 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
 ;
 (function()
 {
- var Global=this,Runtime=this.IntelliFactory.Runtime,Forms,Doc,forms,Client,List,UI,Next,Doc1,View,View1,Var1,T,Pervasives,Form1,Form,Validation,Concurrency,alert,ErrorMessage,AttrProxy,Var,PrintfHelpers;
+ var Global=this,Runtime=this.IntelliFactory.Runtime,Forms,Doc,forms,Client,List,UI,Next,Doc1,View,View1,Pervasives,Form1,Form,Validation,Concurrency,ErrorMessage,T,AttrProxy,PrintfHelpers;
  Runtime.Define(Global,{
   forms:{
    Client:{
@@ -18634,17 +18634,6 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
      _arg00_=View1.Map(arg00,x);
      return Doc1.EmbedView(_arg00_);
     },
-    btn:Runtime.Field(function()
-    {
-     var arg20;
-     arg20=function()
-     {
-      return Var1.Set(Client.submitter(),null);
-     };
-     return Doc1.Button("test snap",Runtime.New(T,{
-      $:0
-     }),arg20);
-    }),
     customErrorId:Runtime.Field(function()
     {
      return 5000;
@@ -18674,7 +18663,6 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
        return Concurrency.Bind(Client.sendToBackend(displayName,number),function(_arg1)
        {
         var _,s;
-        alert("F");
         if(_arg1.$==1)
          {
           _={
@@ -18729,194 +18717,21 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
      };
      return Form1.Render(renderFunction,x1);
     }),
-    "f'":Runtime.Field(function()
-    {
-     var _arg00_,_arg10_,_arg10_1,x,_arg00_1,x1,renderFunction;
-     _arg10_=Form.Yield("");
-     _arg10_1=Form.Yield("");
-     _arg00_=Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Pervasives.op_LessMultiplyGreater(Form1.Return(function(firstname)
-     {
-      return function(lastname)
-      {
-       return function(age)
-       {
-        return[firstname+" "+lastname,age];
-       };
-      };
-     }),Validation.IsNotEmpty("First name is required.",_arg10_)),Validation.IsNotEmpty("Last name is required.",_arg10_1)),Form.Yield(18));
-     x=Form.WithSubmit(_arg00_);
-     _arg00_1=function(tupledArg)
-     {
-      var displayName,number;
-      displayName=tupledArg[0];
-      number=tupledArg[1];
-      return Concurrency.Delay(function()
-      {
-       return Concurrency.Bind(Client.sendToBackend(displayName,number),function(_arg1)
-       {
-        var _,s;
-        alert("F");
-        if(_arg1.$==1)
-         {
-          _={
-           $:1,
-           $0:List.ofArray([ErrorMessage.Create(Client.customErrorId(),"Backend failure")])
-          };
-         }
-        else
-         {
-          s=_arg1.$0;
-          _={
-           $:0,
-           $0:s
-          };
-         }
-        return Concurrency.Return(_);
-       });
-      });
-     };
-     x1=Form.MapToAsyncResult(_arg00_1,x);
-     renderFunction=function(name)
-     {
-      return function(lastname)
-      {
-       return function(age)
-       {
-        return function(submit)
-        {
-         var arg20,arg201,arg202,arg00,arg203,arg001,arg204,arg205;
-         arg202=List.ofArray([Doc1.Input(Runtime.New(T,{
-          $:0
-         }),name)]);
-         arg00=submit.get_View();
-         arg203=List.ofArray([Doc1.Input(Runtime.New(T,{
-          $:0
-         }),lastname)]);
-         arg001=submit.get_View();
-         arg204=List.ofArray([Doc1.IntInputUnchecked(Runtime.New(T,{
-          $:0
-         }),age)]);
-         arg205=function()
-         {
-          return submit.Trigger();
-         };
-         arg201=List.ofArray([Doc1.Element("div",[],arg202),Client["Doc.ShowErrorInline.Static"](arg00,name),Doc1.Element("div",[],arg203),Client["Doc.ShowErrorInline.Static"](arg001,lastname),Doc1.Element("div",[],arg204),Doc1.Button("Send",List.ofArray([AttrProxy.Create("type","submit")]),arg205),Client["Doc.ShowCustomErrors.Static"](submit.get_View())]);
-         arg20=List.ofArray([Doc1.Element("fieldset",[],arg201)]);
-         return Doc1.Element("form",[],arg20);
-        };
-       };
-      };
-     };
-     return Form1.Render(renderFunction,x1);
-    }),
-    input:Runtime.Field(function()
-    {
-     return Doc1.Input(Runtime.New(T,{
-      $:0
-     }),Client.rv());
-    }),
     main:Runtime.Field(function()
     {
-     var arg20,arg201,arg202,arg203;
-     arg20=Runtime.New(T,{
-      $:0
-     });
-     arg201=Runtime.New(T,{
-      $:0
-     });
-     arg202=Runtime.New(T,{
-      $:0
-     });
-     arg203=Runtime.New(T,{
-      $:0
-     });
-     return Doc1.RunById("main",Doc1.Concat(List.ofArray([Client.f(),Doc1.Element("br",[],arg20),Doc1.Element("br",[],arg201),Client["f'"](),Doc1.Element("br",[],arg202),Doc1.Element("br",[],arg203),Client.input(),Client.btn(),Client.snapBefore()])));
-    }),
-    rv:Runtime.Field(function()
-    {
-     return Var.Create("");
+     return Doc1.RunById("main",Client.f());
     }),
     sendToBackend:function(displayName,age)
     {
      return Concurrency.Delay(function()
      {
-      var msg;
-      msg=PrintfHelpers.toSafe(displayName)+" - Age: "+Global.String(age);
+      PrintfHelpers.toSafe(displayName)+" - Age: "+Global.String(age);
       return Concurrency.Return({
-       $:0,
-       $0:msg
+       $:1,
+       $0:List.ofArray([ErrorMessage.Create(0,"Sent")])
       });
      });
-    },
-    snapAfter:Runtime.Field(function()
-    {
-     var arg00,arg10,arg001,arg101,arg20,arg002,arg102,x;
-     arg00={
-      $:0,
-      $0:Var1.Get(Client.rv())
-     };
-     arg10=Client.submitter().get_View();
-     arg001=function(s)
-     {
-      return Client.sendToBackend(s,18);
-     };
-     arg101=Client.rv().get_View();
-     arg20=View1.MapAsync(arg001,arg101);
-     arg002=function(s)
-     {
-      var _,s1;
-      if(s.$==1)
-       {
-        s.$0;
-        _=Doc1.get_Empty();
-       }
-      else
-       {
-        s1=s.$0;
-        alert(s1);
-        _=Doc1.get_Empty();
-       }
-      return _;
-     };
-     arg102=View1.SnapshotOn(arg00,arg10,arg20);
-     x=View1.Map(arg002,arg102);
-     return Doc1.EmbedView(x);
-    }),
-    snapBefore:Runtime.Field(function()
-    {
-     var arg00,arg10,arg20,arg001,arg101,x,arg002,x1;
-     arg00=Var1.Get(Client.rv());
-     arg10=Client.submitter().get_View();
-     arg20=Client.rv().get_View();
-     arg001=function(s)
-     {
-      return Client.sendToBackend(s,18);
-     };
-     arg101=View1.SnapshotOn(arg00,arg10,arg20);
-     x=View1.MapAsync(arg001,arg101);
-     arg002=function(s)
-     {
-      var _,s1;
-      if(s.$==1)
-       {
-        s.$0;
-        _=Doc1.get_Empty();
-       }
-      else
-       {
-        s1=s.$0;
-        alert(s1);
-        _=Doc1.get_Empty();
-       }
-      return _;
-     };
-     x1=View1.Map(arg002,x);
-     return Doc1.EmbedView(x1);
-    }),
-    submitter:Runtime.Field(function()
-    {
-     return Var.Create(null);
-    })
+    }
    }
   }
  });
@@ -18932,31 +18747,21 @@ var JSON;JSON||(JSON={}),function(){"use strict";function i(n){return n<10?"0"+n
   Doc1=Runtime.Safe(Next.Doc);
   View=Runtime.Safe(Forms.View);
   View1=Runtime.Safe(Next.View);
-  Var1=Runtime.Safe(Next.Var1);
-  T=Runtime.Safe(List.T);
   Pervasives=Runtime.Safe(Forms.Pervasives);
   Form1=Runtime.Safe(Forms.Form1);
   Form=Runtime.Safe(Forms.Form);
   Validation=Runtime.Safe(Forms.Validation);
   Concurrency=Runtime.Safe(Global.WebSharper.Concurrency);
-  alert=Runtime.Safe(Global.alert);
   ErrorMessage=Runtime.Safe(Forms.ErrorMessage);
+  T=Runtime.Safe(List.T);
   AttrProxy=Runtime.Safe(Next.AttrProxy);
-  Var=Runtime.Safe(Next.Var);
   return PrintfHelpers=Runtime.Safe(Global.WebSharper.PrintfHelpers);
  });
  Runtime.OnLoad(function()
  {
-  Client.submitter();
-  Client.snapBefore();
-  Client.snapAfter();
-  Client.rv();
   Client.main();
-  Client.input();
-  Client["f'"]();
   Client.f();
   Client.customErrorId();
-  Client.btn();
   return;
  });
 }());
